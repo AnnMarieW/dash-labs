@@ -27,10 +27,10 @@ Here is how it's added to this multi-page app:
 ```python  dangerously_use_exec=False
 dash.register_page(
     __name__,
-    name="Deploy a README.md",
+    name="Deploy a README.md with MarkdownAIO",
     order=99,
     layout=MarkdownAIO(
-        "pages/MarkdownAIO/README.md with MarkdownAIO",        
+        "pages/MarkdownAIO/README.md",        
         side_by_side=True,
         dangerously_use_exec=True
     ),
