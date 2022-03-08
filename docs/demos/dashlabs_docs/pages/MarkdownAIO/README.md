@@ -30,7 +30,7 @@ dash.register_page(
     name="Deploy a README.md",
     order=99,
     layout=MarkdownAIO(
-        "pages/MarkdownAIO/README.md",        
+        "pages/MarkdownAIO/README.md with MarkdownAIO",        
         side_by_side=True,
         dangerously_use_exec=True
     ),
@@ -44,6 +44,7 @@ Or you could run it as regular single page app like this:
 from dash import Dash
 from dash_labs import MarkdownAIO
 
+app = Dash(__name__)
 app.layout = MarkdownAIO("README.md", dangerously_use_exec=True)
 
 if __name__ == "__main__":
