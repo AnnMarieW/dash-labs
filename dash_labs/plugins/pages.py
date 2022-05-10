@@ -102,7 +102,7 @@ def register_page(
         When inferring the image file, it will look for the following extensions: APNG, AVIF, GIF, JPEG, PNG, SVG, WebP.
 
     - `image_url`:
-       This will use the exact image url provided when sharing on social media. 
+       This will use the exact image url provided when sharing on social media.
        This is appealing when the image you want to share is hosted on a CDN.
        Using this attribute overrides the image attribute.
 
@@ -183,7 +183,7 @@ def register_page(
     page.update(
         image=(image if image is not None else _infer_image(module)),
         supplied_image=image,
-        image_url=image_url
+        image_url=image_url,
     )
     page.update(redirect_from=redirect_from)
 
@@ -290,7 +290,7 @@ def _import_layouts_from_pages(pages_folder):
     for (root, dirs, files) in os.walk(pages_folder):
         for file in files:
             if file.endswith(".py") and not file.startswith("_"):
-                with open(os.path.join(root, file), encoding='utf-8') as f:
+                with open(os.path.join(root, file), encoding="utf-8") as f:
                     content = f.read()
                     if "register_page" not in content:
                         continue
@@ -413,8 +413,12 @@ def plug(app):
             if image:
                 image = app.get_asset_url(image)
 
+            assets_image_url = (
+                "".join([flask.request.url_root, image.lstrip("/")]) if image else None
+            )
+
             # get the specified url or create it based on the passed in image
-            image_url = start_page.get("image_url", "".join([flask.request.url_root, image.lstrip("/")]))
+            image_url = start_page.get("image_url", assets_image_url)
 
             title = start_page.get("title", app.title)
             if callable(title):
